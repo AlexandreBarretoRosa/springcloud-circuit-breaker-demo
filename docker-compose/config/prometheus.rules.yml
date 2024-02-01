@@ -1,0 +1,9 @@
+groups:
+- name: orders-api
+  rules:
+  - record: orders_api_job:sli_availability:ratio5m
+    labels: 
+      application: orders
+    expr: sum by (action) (rate(http_requests_received_total{code!~"5.."}[5m]))
+          /
+          sum by (action) (rate(http_requests_received_total[5m]))
